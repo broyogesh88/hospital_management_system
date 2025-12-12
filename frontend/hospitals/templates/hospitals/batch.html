@@ -1,0 +1,33 @@
+{% extends "hospitals/base.html" %}
+
+{% block content %}
+<h2>Batch: {{ batch_id }}</h2>
+
+<table class="table table-striped mt-3 shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Hospital ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for h in hospitals %}
+        <tr>
+            <td>{{ h.id }}</td>
+            <td>{{ h.name }}</td>
+            <td>{{ h.address }}</td>
+            <td>
+                {% if h.active %}
+                    <span class="badge bg-success">Active</span>
+                {% else %}
+                    <span class="badge bg-secondary">Inactive</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

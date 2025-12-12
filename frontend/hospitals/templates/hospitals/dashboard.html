@@ -1,0 +1,23 @@
+{% extends "hospitals/base.html" %}
+
+{% block content %}
+<div class="card shadow p-4">
+    <h2>Dashboard</h2>
+    <p class="text-muted">Quick access to all system operations.</p>
+
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <a href="/hospitals/" class="btn btn-primary w-100">View Hospitals</a>
+        </div>
+        <div class="col-md-3">
+            <a href="/hospitals/create/" class="btn btn-success w-100">Create Hospital</a>
+        </div>
+        <div class="col-md-3">
+            <a href="/hospitals/upload/" class="btn btn-warning w-100">Upload CSV</a>
+        </div>
+        <div class="col-md-3">
+            <a href="/hospitals/batches/" class="btn btn-info w-100 text-white">Batches</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

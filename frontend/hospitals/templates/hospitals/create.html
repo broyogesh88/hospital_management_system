@@ -1,0 +1,26 @@
+{% extends "hospitals/base.html" %}
+
+{% block content %}
+<h2>Create Hospital</h2>
+
+{% if result %}
+<div class="alert alert-success">Hospital created successfully!</div>
+{% endif %}
+
+<form method="POST" class="card shadow p-4 mt-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Address</label>
+        <input name="address" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input name="phone" class="form-control">
+    </div>
+    <button class="btn btn-primary">Create</button>
+</form>
+{% endblock %}

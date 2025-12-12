@@ -1,0 +1,22 @@
+{% extends "hospitals/base.html" %}
+
+{% block content %}
+<h2>Upload CSV</h2>
+
+{% if result %}
+<div class="alert alert-info">
+    <strong>Batch ID:</strong> {{ result.batch_id }}  
+    <br>Created: {{ result.processed_hospitals }}  
+    <br>Failed: {{ result.failed_hospitals }}
+</div>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data" class="card shadow p-4 mt-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">CSV File</label>
+        <input type="file" name="file" class="form-control" required>
+    </div>
+    <button class="btn btn-warning text-white">Upload</button>
+</form>
+{% endblock %}

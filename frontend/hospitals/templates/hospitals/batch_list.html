@@ -1,0 +1,99 @@
+{% extends "hospitals/base.html" %}
+
+{% block content %}
+
+<h2 class="mb-3">All Batches</h2>
+
+{% if batches|length == 0 %}
+<div class="alert alert-warning">No batches found.</div>
+{% endif %}
+
+<table class="table table-bordered table-striped shadow-sm mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Batch ID</th>
+            <th>Total Hospitals</th>
+            <th>Status</th>
+            <th style="width: 300px;">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for b in batches %}
+        <tr>
+            <td>{{ b.batch_id }}</td>
+            <td>{{ b.total_hospitals }}</td>
+
+            <td>
+                {% if b.active %}
+                    <span class="badge bg-success">Activated</span>
+                {% else %}
+                    <span class="badge bg-secondary">Inactive</span>
+                {% endif %}
+            </td>
+
+            <td>
+                <!-- View -->
+                <a href="/hospitals/batch/{{ b.batch_id }}/"
+                   class="btn btn-sm btn-primary">
+                    View
+                </a>
+
+                {% if b.active %}
+                    <!-- Deactivate Button -->
+                    <button class="btn btn-sm btn-warning text-dark"
+                        onclick="confirmDeactivate('{{ b.batch_id }}')">
+                        Deactivate
+                    </button>
+                {% else %}
+                    <!-- Activate Button -->
+                    <button class="btn btn-sm btn-success"
+                        onclick="confirmActivate('{{ b.batch_id }}')">
+                        Activate
+                    </button>
+                {% endif %}
+
+                <!-- Delete Button -->
+                <button class="btn btn-sm btn-danger"
+                    onclick="confirmDelete('{{ b.batch_id }}')">
+                    Delete
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<!-- JavaScript confirmation dialogs -->
+<script>
+function confirmActivate(batchId) {
+    if (confirm("Activate all hospitals in this batch?")) {
+        window.location.href = `/hospitals/batch/${batchId}/activate/`;
+    }
+}
+
+function confirmDeactivate(batchId) {
+    if (confirm("Deactivate this batch?")) {
+        // Deactivation not supported by Render,
+        // so we PATCH individual hospitals to inactive
+        alert("Deactivate batch is not supported by backend!");
+    }
+}
+
+function confirmDelete(batchId) {
+    if (confirm("Delete this batch and all hospitals inside it?")) {
+        window.location.href = `/hospitals/batch/${batchId}/delete/`;
+    }
+}
+
+function confirmDeactivate(batchId) {
+    if (confirm("Deactivate this batch?")) {
+        window.location.href = `/hospitals/batch/${batchId}/deactivate/`;
+    }
+}
+
+
+</script>
+
+{% endblock %}
